@@ -13,6 +13,7 @@ function App() {
 
   const [array, setArray] = useState([])
   const [checked, setChecked] = useState([])
+  const [aux, setAux] = useState(false)
 
   function AddItem(){
     const input = document.getElementById("input").value
@@ -26,6 +27,7 @@ function App() {
         })
       }
     document.getElementById("input").value = ""
+    setAux(val => !val)
     if(document.body.offsetHeight > 640)
       document.getElementsByClassName("background-left")[0].style.height = `${document.body.offsetHeight + 435}px`
   }
@@ -38,6 +40,7 @@ function App() {
     aux = checked.map(val => val)
     aux.splice(target, 1)
     setChecked(aux)
+    setAux(val => !val)
 
     if(document.body.offsetHeight > 640)
       document.getElementsByClassName("background-left")[0].style.height = `${document.body.offsetHeight + 435}px`
@@ -48,27 +51,29 @@ function App() {
   function Change(event){
     const target = event.currentTarget.parentNode.parentNode.getAttribute("index")
     setChecked(val => val.map((el, index) => {
-      console.log(el)
       if(index == target)
         return !el
       else
         return el
     }))
-    console.log(checked)
+    setAux(val => !val)
   }
 
   useEffect(() => {
-      console.log(JSON.parse(localStorage.getItem("array")))
-      console.log(JSON.parse(localStorage.getItem("checked")))
       setArray(JSON.parse(localStorage.getItem("array")))
       setChecked(JSON.parse(localStorage.getItem("checked")))
-      console.log(array)
-  }, [])
+  }, [])  
   
-
-    localStorage.setItem("array", JSON.stringify(array))
-    localStorage.setItem("checked", JSON.stringify(checked))
-      
+  useEffect(() => {
+    setTimeout(() => {
+      if(document.body.offsetHeight > 640)
+        document.getElementsByClassName("background-left")[0].style.height = `${document.body.offsetHeight + 435}px`
+    }, 5);
+    setTimeout(() => {
+      localStorage.setItem("array", JSON.stringify(array))
+      localStorage.setItem("checked", JSON.stringify(checked))
+    }, 500);
+}, [aux])
 
   const Element = array.map((val, i) => {
                 return (
