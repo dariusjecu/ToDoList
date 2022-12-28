@@ -68,6 +68,8 @@ function App() {
     setTimeout(() => {
       if(document.body.offsetHeight > 640)
         document.getElementsByClassName("background-left")[0].style.height = `${document.body.offsetHeight + 435}px`
+        else
+        document.getElementsByClassName("background-left")[0].style.height = `100%`
     }, 5);
     setTimeout(() => {
       localStorage.setItem("array", JSON.stringify(array))
