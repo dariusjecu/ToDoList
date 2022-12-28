@@ -74,7 +74,7 @@ function App() {
     setTimeout(() => {
       localStorage.setItem("array", JSON.stringify(array))
       localStorage.setItem("checked", JSON.stringify(checked))
-    }, 500);
+    }, 100);
 }, [aux])
 
   const Element = array.map((val, i) => {
