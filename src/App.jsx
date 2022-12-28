@@ -14,6 +14,7 @@ function App() {
   const [array, setArray] = useState([])
   const [checked, setChecked] = useState([])
   const [aux, setAux] = useState(false)
+  const [changed, setChanged] = useState(false)
 
   function AddItem(){
     const input = document.getElementById("input").value
@@ -28,6 +29,7 @@ function App() {
       }
     document.getElementById("input").value = ""
     setAux(val => !val)
+    setChanged(true)
     if(document.body.offsetHeight > 640)
       document.getElementsByClassName("background-left")[0].style.height = `${document.body.offsetHeight + 435}px`
   }
@@ -41,6 +43,7 @@ function App() {
     aux.splice(target, 1)
     setChecked(aux)
     setAux(val => !val)
+    setChanged(true)
 
     if(document.body.offsetHeight > 640)
       document.getElementsByClassName("background-left")[0].style.height = `${document.body.offsetHeight + 435}px`
@@ -57,13 +60,12 @@ function App() {
         return el
     }))
     setAux(val => !val)
+    setChanged(true)
   }
 
   useEffect(() => {
-    setTimeout(() => {
       setArray(JSON.parse(localStorage.getItem("array")))
       setChecked(JSON.parse(localStorage.getItem("checked")))
-    }, 100);
   }, [])  
   
   useEffect(() => {
@@ -73,6 +75,7 @@ function App() {
         else
         document.getElementsByClassName("background-left")[0].style.height = `100%`
     }, 5);
+    if(changed == true)
     setTimeout(() => {
       localStorage.setItem("array", JSON.stringify(array))
       localStorage.setItem("checked", JSON.stringify(checked))
