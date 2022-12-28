@@ -60,8 +60,10 @@ function App() {
   }
 
   useEffect(() => {
+    setTimeout(() => {
       setArray(JSON.parse(localStorage.getItem("array")))
       setChecked(JSON.parse(localStorage.getItem("checked")))
+    }, 100);
   }, [])  
   
   useEffect(() => {
@@ -74,7 +76,7 @@ function App() {
     setTimeout(() => {
       localStorage.setItem("array", JSON.stringify(array))
       localStorage.setItem("checked", JSON.stringify(checked))
-    }, 100);
+    }, 300);
 }, [aux])
 
   const Element = array.map((val, i) => {
