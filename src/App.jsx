@@ -64,8 +64,11 @@ function App() {
   }
 
   useEffect(() => {
+    if(JSON.parse(localStorage.getItem("array")))
+    {
       setArray(JSON.parse(localStorage.getItem("array")))
       setChecked(JSON.parse(localStorage.getItem("checked")))
+    }
   }, [])  
   
   useEffect(() => {
